@@ -1,5 +1,7 @@
 import os
 
+import copy
+
 from rush_hour.vehicles import Car, Truck, SpecialCar, Vehicle
 
 
@@ -12,9 +14,10 @@ class Board():
     """
 
     # Map information
-    _map_folder = "/Users/MagnusPoppe/Desktop/OneDrive/Utvikling/appsPython/AI_project_1/maps"
-    _map_width  = 6
-    _map_height = 6
+    map_folder = "/Users/MagnusPoppe/Desktop/OneDrive/Utvikling/appsPython/AI_project_1/maps"
+    map_width  = 6
+    map_height = 6
+    map_blank_space = 0
 
     _left_up = 0
     _right_down = 1
@@ -27,10 +30,10 @@ class Board():
     def __init__(self, filename: str):
         """ Reads a file containing the map and creates a complete map. """
 
-        for i in range(self._map_width):
-            self.board.append([0]*self._map_height)
+        for i in range(self.map_width):
+            self.board.append([self.map_blank_space] * self.map_height)
 
-        with open(os.path.join(self._map_folder, filename)) as file:
+        with open(os.path.join(self.map_folder, filename)) as file:
             i = 0
             ids = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N"]
             for line in file:
@@ -51,31 +54,34 @@ class Board():
             output += "\n"
         return output
 
-    def get_moves(self, vehicle: Vehicle) -> tuple:
+    def __eq__(self, other) -> bool:
+        " if same vehicles and same baord, they are equal. "
 
-        # Finds the next move:
-        if vehicle.orientation == vehicle.VERTICAL:
-            beforeX = vehicle.x
-            beforeY = vehicle.y-1
-            afterX = vehicle.x
-            afterY = vehicle.y + vehicle.size
-        else:
-            beforeX = vehicle.x-1
-            beforeY = vehicle.y
-            afterX = vehicle.x + vehicle.size
-            afterY = vehicle.y
+        if not isinstance(other, Board): return False
 
-        before = False
-        after = False
-        if beforeX >= 0 and beforeY >= 0 and self.board[beforeY][beforeX] == 0:
-            before = True
+        for y in range(self.map_height):
+            for x in range(self.map_width):
+                if other.board[y][x] != self.board[y][x]:
+                    return False
 
-        if afterX < self._map_width and afterY < self._map_height and self.board[afterY][afterX] == 0:
-            after = True
+        if len(self.vehicles) != len(other.vehicles):
+            return False
 
-        return before, after
+        for i in range(len(self.vehicles)):
+            if other.vehicles[i] != self.vehicles[i]:
+                return False
 
+        return True
 
+    def copy(self):
+        # Deepcopy because regular deepcopy does not do the job.
+        board = copy.deepcopy(self.board)
+        vehicles = copy.copy(self.vehicles)
+
+        new_self = copy.copy(self)
+        new_self.vehicles = vehicles
+        new_self.board = board
+        return new_self
 
     def _place_vehicle_on_board(self, vehicle: Vehicle):
         """ Places a vehicle on the map. Makes sure there is no
@@ -92,7 +98,7 @@ class Board():
             elif vehicle.orientation == vehicle.HORIZONTAL:
                 currentx += 1
 
-            if self.board[currenty][currentx] == 0:
+            if self.board[currenty][currentx] == self.map_blank_space:
                 self.board[currenty][currentx] = vehicle.id
             else:
                 raise ValueError("Overlapping vehicles at coordiates ("+str(currentx)+", "+str(currenty)+")")
