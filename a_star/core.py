@@ -9,7 +9,7 @@ class AStarCore():
     closed = {}
 
     # Stats:
-    iterations = 0
+    nodes_generated = 0
 
     def __init__(self, agenda: Agenda):
         self.start_time = time.time()
@@ -23,8 +23,11 @@ class AStarCore():
         """
         pass
 
-    def stats(self) -> str:
-        return "Total iterations: " + str(self.iterations) + "\nSeconds used: " + str(self.end_time-self.start_time)
+    def total_nodes(self) -> int:
+        return len(self.closed)
+
+    def time_used(self) -> float:
+        return self.end_time-self.start_time
 
     def best_first_search(self):
         """
@@ -34,7 +37,6 @@ class AStarCore():
         to be solved.
         """
         while not self.agenda.is_empty():
-            self.iterations += 1
             # Getting next node from the agenda:
             node = self.agenda.dequeue() # type: Node
 

@@ -130,7 +130,7 @@ class Board():
             overlapping vehicles.
         """
         # WIN CASE:
-        if vehicle.x == 5 and vehicle.y == 2 and isinstance(vehicle, SpecialCar):
+        if vehicle.x == self.map_width-2 and vehicle.y == 2 and isinstance(vehicle, SpecialCar):
             self.won = True
 
         currentx = vehicle.x
@@ -146,7 +146,8 @@ class Board():
                 if self.board[currenty][currentx] == self.map_blank_space:
                     self.board[currenty][currentx] = vehicle.id
                 else:
-                    raise ValueError("Overlapping vehicles at coordiates ("+str(currentx)+", "+str(currenty)+")")
+                    raise ValueError("Overlapping vehicles at coordiates ("+str(currentx)+", "+str(currenty)+") "
+                                     "for vehicle " + str(vehicle))
             except IndexError as e:
                 if self.won is False: raise e
 

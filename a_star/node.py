@@ -5,6 +5,7 @@ class Node():
     f = None
     g = None
     h = None
+    weight = 0
 
     # Parent and children needs to be connected:
     parent = None
@@ -27,14 +28,11 @@ class Node():
     def __gt__(self, other): return self.__cmp__(other) > 0
     def __ge__(self, other): return self.__cmp__(other) > 0 or self.__cmp__(other) == 0
 
-    def weight(self):
-        pass
-
     def create_children(self):
         pass
 
     def is_solution(self):
-        pass
+        pass # return self.h == 0
 
     def recalculate_G_for_all_children(self, new_parent):
         """ TODO: Gives recursion error. """
@@ -54,11 +52,11 @@ class Node():
         :return: g(x)
         """
         if isinstance(parent_value, int):
-            self.g = parent_value + self.weight()
+            self.g = parent_value + self.weight
         elif self.parent:
-            self.g = self.parent.setG() + self.weight()
+            self.g = self.parent.setG() + self.weight
         else:
-            self.g = self.weight()
+            self.g = self.weight
 
         return self.g
 

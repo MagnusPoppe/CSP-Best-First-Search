@@ -21,6 +21,16 @@ class Agenda():
     def __str__(self):
         return "Agenda with " + int(len(self._queue)) + " nodes."
 
+    def __len__(self):
+        return len(self._queue)
+
+    def __contains__(self, item) -> bool:
+        """ Checks if a node is in the agenda using the hashmap. """
+        if isinstance(item, Node):
+            return hash(item) in self._map
+        return False
+
+
     def enqueue(self, node: Node):
         """
         Sets a node into queue for the priority queue. Also
@@ -49,12 +59,6 @@ class Agenda():
     def remove_node(self, node: Node):
         self._map[hash(node)] = None
         self._queue.remove(node)
-
-    def __contains__(self, item) -> bool:
-        """ Checks if a node is in the agenda using the hashmap. """
-        if isinstance(item, Node):
-            return hash(item) in self._map
-        return False
 
     def is_empty(self) -> bool:
         """ Checks for empty agenda. True if empty. """
