@@ -14,7 +14,6 @@ class Board():
     """
 
     # Map information
-    map_folder = "/Users/MagnusPoppe/Desktop/OneDrive/Utvikling/appsPython/AI_project_1/maps"
     map_width  = 6
     map_height = 6
     map_blank_space = 0
@@ -26,22 +25,30 @@ class Board():
     vehicles = []
     board = []
 
+    # bool for won board:
+    won = False
 
-    def __init__(self, filename: str):
+
+    def __init__(self, state: str):
         """ Reads a file containing the map and creates a complete map. """
+        self.board = []
+        self.vehicles = []
+        self.state = state.strip("\n")
 
         for i in range(self.map_width):
             self.board.append([self.map_blank_space] * self.map_height)
+        i = 0
+        ids = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"]
 
-        with open(os.path.join(self.map_folder, filename)) as file:
-            i = 0
-            ids = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N"]
-            for line in file:
-                vehicle = self._create_vehicle(line.strip("\n").split(","), ids[i])
-                self.vehicles.append(vehicle)
+        for line in state.split("\n"):
+            if line == "": continue
+            vehicle = self._create_vehicle(line.split(","), ids[i])
+            self.vehicles.append(vehicle)
+            self._place_vehicle_on_board(vehicle)
+            i += 1
 
-                self._place_vehicle_on_board(vehicle)
-                i += 1
+    def __hash__(self):
+        return hash(self.state)
 
     def __str__(self):
         output = ""
@@ -83,10 +90,48 @@ class Board():
         new_self.board = board
         return new_self
 
+    def validate(self):
+        map = {}
+        for row in self.board:
+            for tile in row:
+                if tile not in map:
+                    map[tile] = 0
+                map[tile] += 1
+
+        for id, count in map.items():
+            for vehicle in self.vehicles:
+                if id == vehicle.id and count != vehicle.size: return False
+        return True
+
+    def make_move(self, vehicle: Vehicle, direction):
+        # Creating the modifier for vehicle coordinates:
+        x = 0
+        y = 0
+        if vehicle.orientation == vehicle.VERTICAL:
+            if direction == vehicle.FORWARDS:       y = 1
+            elif direction == vehicle.BACKWARDS:    y = -1
+        elif vehicle.orientation == vehicle.HORIZONTAL:
+            if direction == vehicle.FORWARDS:       x = 1
+            elif direction == vehicle.BACKWARDS:    x = -1
+
+        state = ""
+        for v in self.vehicles:
+            if v.id == vehicle.id:
+                state += str(vehicle.orientation) + ","
+                state += str(vehicle.x+x) + ","
+                state += str(vehicle.y+y) + ","
+                state += str(vehicle.size) + "\n"
+            else:
+                state += v.spec() + "\n"
+        return Board(state)
+
     def _place_vehicle_on_board(self, vehicle: Vehicle):
         """ Places a vehicle on the map. Makes sure there is no
             overlapping vehicles.
         """
+        # WIN CASE:
+        if vehicle.x == 5 and vehicle.y == 2 and isinstance(vehicle, SpecialCar):
+            self.won = True
 
         currentx = vehicle.x
         currenty = vehicle.y
@@ -97,11 +142,13 @@ class Board():
                 currenty += 1
             elif vehicle.orientation == vehicle.HORIZONTAL:
                 currentx += 1
-
-            if self.board[currenty][currentx] == self.map_blank_space:
-                self.board[currenty][currentx] = vehicle.id
-            else:
-                raise ValueError("Overlapping vehicles at coordiates ("+str(currentx)+", "+str(currenty)+")")
+            try:
+                if self.board[currenty][currentx] == self.map_blank_space:
+                    self.board[currenty][currentx] = vehicle.id
+                else:
+                    raise ValueError("Overlapping vehicles at coordiates ("+str(currentx)+", "+str(currenty)+")")
+            except IndexError as e:
+                if self.won is False: raise e
 
     def _create_vehicle(self, info: list, id:str) -> Vehicle:
         """ Creates a vehicle from an array of specs.
