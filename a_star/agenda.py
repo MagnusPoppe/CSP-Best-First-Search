@@ -11,8 +11,6 @@ class Agenda():
     # Since both datastructures will reference the same nodes,
     # the space used will not be too bad. Speed increase for
     # using the hashmap is huge.
-    _queue = []
-    _map = {}
 
     def __init__(self):
         self._queue = []
@@ -33,12 +31,12 @@ class Agenda():
 
     def enqueue(self, node: Node):
         """
-        Sets a node into queue for the priority queue. Also
+        Sets a node into queue for the priority list. Also
         adds a node to the hashmap.
         """
         if not isinstance(node, Node): raise TypeError("Agenda does not support " + str(node) + ".")
         self._queue.append(node)
-        self._queue.sort() # Uses the comparator in the Node class. (__cmp__())
+        self._queue.sort() # Uses the comparator in the Node class.
         self._map[hash(node)] = node
 
     def dequeue(self) -> Node:
@@ -47,10 +45,8 @@ class Agenda():
         :return: Next node to be evaluated.
         """
         node = self._queue.pop(0)
-        try:
-            del self._map[hash(node)]
-        except KeyError:
-            pass
+        try: del self._map[hash(node)]
+        except KeyError: pass
         return node
 
     def get_node(self, hash) -> Node:

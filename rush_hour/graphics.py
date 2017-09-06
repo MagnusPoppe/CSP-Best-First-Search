@@ -6,9 +6,10 @@ from rush_hour.board import Board
 
 class RushHourGUI():
 
-    colors = ["blue", "green", "purple", "yellow", "orange", "pink", "cyan", "magenta", "salmon", "grey", "light grey", "maroon", "light yellow"]
-    canvas_width = 400
-    canvas_height = 400
+    colors = ["black", "green", "purple", "yellow", "orange", "blue", "pink", "cyan", "magenta", "salmon",
+              "dark grey", "light grey", "maroon", "light yellow"]
+    canvas_width = 300
+    canvas_height = 300
 
     def __init__(self, master, title, winner_node):
         self.master = master # type: tkinter.Tk

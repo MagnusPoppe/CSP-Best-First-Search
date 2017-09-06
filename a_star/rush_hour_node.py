@@ -17,9 +17,10 @@ class RushHourNode(Node):
         return hash(self.board)
 
     def setH(self):
-        self.h = self.manhatten_distance()
+        # self.h = self.manhatten_distance()
         # self.h = self.euclidiean_distance()
         # self.h = self.weighted_path_distance()
+        self.h = self.all_infront_distance()
         return self.h
 
     def setF(self):
@@ -44,6 +45,19 @@ class RushHourNode(Node):
         # Looping through the squares in front of the car to weigh the path
         for xi in range(vehicle.x+vehicle.size, 5):
             score += empty_space if self.board.board[vehicle.y][xi] == self.board.map_blank_space else vehicle_in_space
+
+        return score
+
+    def all_infront_distance(self) -> int:
+        # Points to earn
+        empty_space = 1
+        vehicle_in_space = 2
+        score = 0
+
+        # Looping through the squares in front of the car to weigh the path
+        for xi in range(self.board.vehicles[0].x + self.board.vehicles[0].size, 5):
+            for y in range(self.board.map_height):
+                score += empty_space if self.board.board[y][xi] == self.board.map_blank_space else vehicle_in_space
 
         return score
 

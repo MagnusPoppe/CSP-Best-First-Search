@@ -24,6 +24,11 @@ class AStarCore():
         pass
 
     def total_nodes(self) -> int:
+        """ Just for stats... """
+        return len(self.closed) + len(self.agenda)
+
+    def nodes_analyzed(self) -> int:
+        """ Just for stats... """
         return len(self.closed)
 
     def time_used(self) -> float:
@@ -41,9 +46,8 @@ class AStarCore():
             node = self.agenda.dequeue() # type: Node
 
             self.closed[hash(node)] = node
-            # print(node.board)
-            # If the node is a solution, return it:
 
+            # If the node is a solution, return it:
             if node.is_solution():
                 self.end_time = time.time()
                 return node
