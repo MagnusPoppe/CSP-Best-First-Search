@@ -12,9 +12,14 @@ class AStarCore():
     nodes_generated = 0
 
     def __init__(self, agenda: Agenda):
+        self.closed = {}
         self.start_time = time.time()
         self.end_time = 0
         self.agenda = agenda
+
+    def reset(self):
+        self.closed = None
+        self.agenda = None
 
     def is_solution(self, node):
         """
@@ -79,6 +84,7 @@ class AStarCore():
                     else:
                         # self.agenda.remove_node(other_node) # no need to remove. Correct answer will be eval first
                         self.agenda.enqueue(child)
+
                 else:
                     # Node has not been seen or evaluated before. Add to agenda.
                     self.agenda.enqueue(child) # NOTE! Slow.

@@ -7,20 +7,21 @@ class RushHourNode(Node):
 
     board = None
 
-    def __init__(self, board, parent):
+    def __init__(self, board, parent, heuristic=None):
         super().__init__(parent)
         self.weight = 1 # In rush hour a move is always 1. therefore, weight of node is 1.
         self.board = board
-        self.setF() # Also sets G and H.
+        self.heuristic_algorithm = heuristic
+        self.setF()  # Also sets G and H.
 
     def __hash__(self):
         return hash(self.board)
 
     def setH(self):
-        # self.h = self.manhatten_distance()
-        # self.h = self.euclidiean_distance()
-        # self.h = self.weighted_path_distance()
-        self.h = self.all_infront_distance()
+        if   self.heuristic_algorithm == 0: self.h = self.manhatten_distance()
+        elif self.heuristic_algorithm == 1: self.h = self.euclidiean_distance()
+        elif self.heuristic_algorithm == 2: self.h = self.weighted_path_distance()
+        elif self.heuristic_algorithm == 3: self.h = self.all_infront_distance()
         return self.h
 
     def setF(self):
@@ -35,6 +36,13 @@ class RushHourNode(Node):
         return math.sqrt(math.pow(5-self.board.vehicles[0].x, 2) + math.pow( 2 - self.board.vehicles[0].y , 2))
 
     def weighted_path_distance(self) -> int:
+        """
+        Gives a heurisitc based on all squares in the path of the vehicle.
+        Points are given for the contents of each cell in front of the vehicle:
+        Empty cell          = 1
+        Vehicle in the cell = 2
+        :return: heuristic
+        """
         # Points to earn
         empty_space = 1
         vehicle_in_space = 2
@@ -49,12 +57,20 @@ class RushHourNode(Node):
         return score
 
     def all_infront_distance(self) -> int:
+        """
+        Gives a heurisitc based on all squares infront of the vehicle.
+        Points are given for the contents of each cell in the grid:
+        Empty cell          = 1
+        Vehicle in the cell = 2
+        :return: heuristic
+        """
+
         # Points to earn
         empty_space = 1
         vehicle_in_space = 2
         score = 0
 
-        # Looping through the squares in front of the car to weigh the path
+        # Looping through the squares
         for xi in range(self.board.vehicles[0].x + self.board.vehicles[0].size, 5):
             for y in range(self.board.map_height):
                 score += empty_space if self.board.board[y][xi] == self.board.map_blank_space else vehicle_in_space
@@ -76,11 +92,11 @@ class RushHourNode(Node):
             if forwards:
                 board_f = self.board.make_move(vehicle, vehicle.FORWARDS)
                 if board_f is not None:
-                    self.children.append(RushHourNode(board_f, self))
+                    self.children.append(RushHourNode(board_f, self, self.heuristic_algorithm))
             if backwards:
                 board_b = self.board.make_move(vehicle, vehicle.BACKWARDS)
                 if board_b is not None:
-                    self.children.append(RushHourNode(board_b, self))
+                    self.children.append(RushHourNode(board_b, self, self.heuristic_algorithm))
 
         return self.children
 
