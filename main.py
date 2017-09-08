@@ -1,3 +1,4 @@
+import cProfile
 import os
 from tkinter import Tk
 
@@ -79,50 +80,66 @@ def print_best_stats(file):
           " @ " + str(stats["time"]["stat"]))
     print("\n")
 
-if __name__ == '__main__':
-    use_gui = len(sys.argv) > 1 and sys.argv[1] == "-gui"
+def run(file, heuristic=0):
     astar = None
-    for i in range(len(files)):
-        for num, heuristic in enumerate(heuristics):
 
-            # Teardown:
-            if astar:
-                astar.reset()
-                board = None
-                node = None
-                winner_node = None
+    # Teardown:
+    if astar:
+        astar.reset()
+        board = None
+        node = None
+        winner_node = None
 
-            # Reading file:
-            input = read_file_to_string(os.path.join(map_folder, files[i]))
+    # Reading file:
+    input = read_file_to_string(os.path.join(map_folder, file))
 
-            # Instantiating initial board and node:
-            board = Board(input)
-            agenda = Agenda()
-            node = RushHourNode(board, parent=None, heuristic=num)
+    # Instantiating initial board and node:
+    board = Board(input)
+    agenda = Agenda()
+    node = RushHourNode(board, parent=None, heuristic=heuristic)
 
-            # Setting heuristic function:
-            # if   heuristic == "Manhatten":
-            #     node.heuristic_algorithm = node.manhatten_distance
-            # elif heuristic == "Euclidiean":
-            #     node.heuristic_algorithm = node.euclidiean_distance
-            # elif heuristic == "Weighted path":
-            #     node.heuristic_algorithm = node.weighted_path_distance
-            # elif heuristic == "all-in-front":
-            #     node.heuristic_algorithm = node.all_infront_distance
+    # Setting heuristic function:
+    # if   heuristic == "Manhatten":
+    #     node.heuristic_algorithm = node.manhatten_distance
+    # elif heuristic == "Euclidiean":
+    #     node.heuristic_algorithm = node.euclidiean_distance
+    # elif heuristic == "Weighted path":
+    #     node.heuristic_algorithm = node.weighted_path_distance
+    # elif heuristic == "all-in-front":
+    #     node.heuristic_algorithm = node.all_infront_distance
 
-            node.setF()
-            node.weight = 0
-            agenda.enqueue(node)
+    node.setF()
+    node.weight = 0
+    agenda.enqueue(node)
 
-            # Running A*:
-            astar = AStarCore(agenda)
-            winner_node = astar.best_first_search()
+    # Running A*:
+    astar = AStarCore(agenda)
+    winner_node = astar.best_first_search()
 
-            # Printing stats:
-            # print_stats(files[i], heuristic, winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
-            record_best(files[i], heuristic, winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
+    # Printing stats:
+    # print_stats(file, heuristics[heuristic], winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
+    record_best(file, heuristics[heuristic], winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
 
-        print("All heuristics calculated for " + files[i])
-        # if use_gui: display_results(winner_node, files[i])
+    return winner_node
 
-        print_best_stats(files[i])
+if __name__ == '__main__':
+    file = None
+    use_gui = False
+    if len(sys.argv) == 3:
+        use_gui = len(sys.argv) > 1 and sys.argv[1] == "-gui"
+        file = sys.argv[2]
+    elif len(sys.argv) == 2:
+        use_gui = len(sys.argv) > 1 and sys.argv[1] == "-gui"
+        if not use_gui: file = sys.argv[1]
+
+    heuristic_algorithm = 3
+
+    if file:
+        winner_node = run(file, heuristic_algorithm)
+        print_best_stats(file)
+        if use_gui: display_results(winner_node, file)
+    else:
+        for i in range(len(files)):
+            winner_node = run(files[i], heuristic_algorithm)
+            print_best_stats(files[i])
+            if use_gui: display_results(winner_node, files[i])

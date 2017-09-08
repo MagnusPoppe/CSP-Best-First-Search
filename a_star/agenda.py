@@ -17,7 +17,7 @@ class Agenda():
         self._map = {}
 
     def __str__(self):
-        return "Agenda with " + int(len(self._queue)) + " nodes."
+        return "Agenda with " + str(len(self._queue)) + " nodes."
 
     def __len__(self):
         return len(self._queue)

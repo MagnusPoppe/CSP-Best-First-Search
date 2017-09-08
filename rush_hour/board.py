@@ -80,16 +80,6 @@ class Board():
 
         return True
 
-    def copy(self):
-        # Deepcopy because regular deepcopy does not do the job.
-        board = copy.deepcopy(self.board)
-        vehicles = copy.copy(self.vehicles)
-
-        new_self = copy.copy(self)
-        new_self.vehicles = vehicles
-        new_self.board = board
-        return new_self
-
     def validate(self):
         map = {}
         for row in self.board:
