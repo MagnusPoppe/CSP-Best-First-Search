@@ -35,7 +35,6 @@ class Node():
         pass # return self.h == 0
 
     def recalculate_G_for_all_children(self, new_parent):
-        """ TODO: Gives recursion error. """
         self.parent = new_parent
         self.setG(new_parent.g)
         for child in self.children:
@@ -51,13 +50,10 @@ class Node():
         :param parent_value: to avoid unnesseary recursion
         :return: g(x)
         """
-        if isinstance(parent_value, int):
+        if parent_value:
             self.g = parent_value + self.weight
-        elif self.parent:
-            self.g = self.parent.setG() + self.weight
         else:
             self.g = self.weight
-
         return self.g
 
     def setH(self):

@@ -25,7 +25,9 @@ class RushHourNode(Node):
         return self.h
 
     def setF(self):
-        self.f = self.setG() + self.setH()
+        if self.parent: self.f = self.setG(self.parent.g) + self.setH()
+        else: self.f = self.setG() + self.setH()
+        return self.f
 
     def manhatten_distance(self) -> int:
         """ Manhatten distance, absolute value of x to goal + y to goal. """

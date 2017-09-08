@@ -2,7 +2,7 @@ import os
 
 import copy
 
-from rush_hour.vehicles import Car, Truck, SpecialCar, Vehicle
+from rush_hour.vehicles import Vehicle
 
 
 class Board():
@@ -31,7 +31,7 @@ class Board():
 
     def __init__(self, state: str):
         """ Reads a file containing the map and creates a complete map. """
-        self.board = []
+        self.board = []        # self.board = [[self.map_blank_space] * self.map_height] * self.map_width
         self.vehicles = []
         self.state = state.strip("\n")
 
@@ -42,7 +42,7 @@ class Board():
 
         for line in state.split("\n"):
             if line == "": continue
-            vehicle = self._create_vehicle(line.split(","), ids[i])
+            vehicle = Vehicle(int(line[2]), int(line[4]), int(line[0]), int(line[6]), ids[i], special=i==0)
             self.vehicles.append(vehicle)
             self._place_vehicle_on_board(vehicle)
             i += 1
@@ -116,11 +116,28 @@ class Board():
         return Board(state)
 
     def _place_vehicle_on_board(self, vehicle: Vehicle):
+        if (vehicle.special and vehicle.x == self.map_width-2 and vehicle.y == 2):
+            self.won = True
+            return
+
+        if vehicle.orientation == vehicle.VERTICAL:
+            self.board[vehicle.y][vehicle.x] = vehicle.id
+            self.board[vehicle.y+1][vehicle.x] = vehicle.id
+            if vehicle.size == 3: self.board[vehicle.y+2][vehicle.x] = vehicle.id
+        elif vehicle.orientation == vehicle.HORIZONTAL:
+            try:
+                self.board[vehicle.y][vehicle.x] = vehicle.id
+                self.board[vehicle.y][vehicle.x+1] = vehicle.id
+                if vehicle.size == 3: self.board[vehicle.y][vehicle.x+2] = vehicle.id
+            except Exception as e:
+                pass
+
+    def _place_vehicle_on_board_safe(self, vehicle: Vehicle):
         """ Places a vehicle on the map. Makes sure there is no
             overlapping vehicles.
         """
         # WIN CASE:
-        if vehicle.x == self.map_width-2 and vehicle.y == 2 and isinstance(vehicle, SpecialCar):
+        if vehicle.special and vehicle.x == self.map_width-2 and vehicle.y == 2:
             self.won = True
 
         currentx = vehicle.x
@@ -132,33 +149,8 @@ class Board():
                 currenty += 1
             elif vehicle.orientation == vehicle.HORIZONTAL:
                 currentx += 1
-            try:
-                if self.board[currenty][currentx] == self.map_blank_space:
-                    self.board[currenty][currentx] = vehicle.id
-                else:
-                    raise ValueError("Overlapping vehicles at coordiates ("+str(currentx)+", "+str(currenty)+") "
-                                     "for vehicle " + str(vehicle))
-            except IndexError as e:
-                if self.won is False: raise e
-
-    def _create_vehicle(self, info: list, id:str) -> Vehicle:
-        """ Creates a vehicle from an array of specs.
-            as specified in the task, the information about a given vehicle is formatted
-            as follows:
-            [ Orientation, X, Y, Size ]
-        """
-        orientation = int(info[0])
-        x = int(info[1])
-        y = int(info[2])
-        size = int(info[3])
-
-        if len(self.vehicles) == 0 and size == 2:
-            vehicle = SpecialCar(x, y, orientation, id)
-        elif size == 2:
-            vehicle = Car(x, y, orientation, id)
-        elif size == 3:
-            vehicle = Truck(x, y, orientation, id)
-        else:
-            raise ValueError("No vehicle matching the description in the file for vehicle: " + str(info))
-
-        return vehicle
+            if self.board[currenty][currentx] == self.map_blank_space:
+                self.board[currenty][currentx] = vehicle.id
+            else:
+                raise ValueError("Overlapping vehicles at coordiates ("+str(currentx)+", "+str(currenty)+") "
+                                 "for vehicle " + str(vehicle))

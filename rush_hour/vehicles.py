@@ -7,9 +7,7 @@ class Vehicle:
     FORWARDS = 0
     BACKWARDS = 1
 
-    size = 0
-
-    def __init__(self, x, y, orientation, identifier):
+    def __init__(self, x, y, orientation, size, identifier, special=False):
         # Coordinates for the top-left-corner of the object.
         self.x = x
         self.y = y
@@ -17,6 +15,8 @@ class Vehicle:
 
         # Direction of the vehicle. Used for movement and
         self.orientation = orientation
+        self.size = size
+        self.special = special
 
     def __str__(self):
         if self.orientation == self.VERTICAL:
@@ -59,7 +59,7 @@ class Vehicle:
             and board.board[forwardY][forwardX] == board.map_blank_space
         )
 
-        if forwardX == 6 and forwardY == 2 and isinstance(self, SpecialCar):
+        if self.special and forwardX == 6 and forwardY == 2:
             return backward, True
 
         return backward, forward
@@ -69,29 +69,3 @@ class Vehicle:
 Created a specialized version of each type of vehicle to be able to
 have the debugger display nicer names with "to string".
 """
-
-
-class Truck(Vehicle):
-    size = 3
-
-    def __init__(self, x, y, orientation, identifier):
-        super().__init__(x, y, orientation, identifier)
-
-    def __str__(self):
-        return "Truck " + self.id + " " + super().__str__()
-
-class Car(Vehicle):
-    size = 2
-
-    def __init__(self, x, y, orientation, identifier):
-        super().__init__(x, y, orientation, identifier)
-
-    def __str__(self):
-        return "Car " + self.id + " " + super().__str__()
-
-class SpecialCar(Car):
-    def __init__(self, x, y, orientation, identifier):
-        super().__init__(x, y, orientation, identifier)
-
-    def __str__(self):
-        return "Special " + super().__str__()

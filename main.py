@@ -97,17 +97,6 @@ def run(file, heuristic=0):
     board = Board(input)
     agenda = Agenda()
     node = RushHourNode(board, parent=None, heuristic=heuristic)
-
-    # Setting heuristic function:
-    # if   heuristic == "Manhatten":
-    #     node.heuristic_algorithm = node.manhatten_distance
-    # elif heuristic == "Euclidiean":
-    #     node.heuristic_algorithm = node.euclidiean_distance
-    # elif heuristic == "Weighted path":
-    #     node.heuristic_algorithm = node.weighted_path_distance
-    # elif heuristic == "all-in-front":
-    #     node.heuristic_algorithm = node.all_infront_distance
-
     node.setF()
     node.weight = 0
     agenda.enqueue(node)
