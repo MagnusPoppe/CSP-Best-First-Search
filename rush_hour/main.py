@@ -9,10 +9,11 @@ import sys
 from a_star.agenda import Agenda
 from a_star.core import AStarCore
 from a_star.rush_hour_node import RushHourNode
+from file_tostring import read_file_to_string
 from rush_hour.board import Board
 from rush_hour.graphics import RushHourGUI
 
-map_folder = "/Users/MagnusPoppe/Desktop/OneDrive/Utvikling/appsPython/AI_project_1/maps"
+map_folder = "/Users/MagnusPoppe/Desktop/OneDrive/Utvikling/appsPython/AI_project_1/rush_hour/maps"
 
 best_solution = [16, 24, 33, 73, 93]
 minimum_nodes = [77, 611, 923, 5685, 24132]
@@ -26,14 +27,6 @@ def display_results(solution, title):
         root.update()
         gui.draw_board(gui.frames[gui.frameindex])
         time.sleep(.2)
-
-def read_file_to_string(path):
-    # Reading file:
-    file = open(path)
-    file_to_string = ""
-    for line in file: file_to_string += line
-    file.close()
-    return file_to_string
 
 best = {}
 def record_best(file, heuristic, moves, time, analyzed, total_nodes):
@@ -106,7 +99,7 @@ def run(file, heuristic=0):
     winner_node = astar.best_first_search()
 
     # Printing stats:
-    # print_stats(file, heuristics[heuristic], winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
+    print_stats(file, heuristics[heuristic], winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
     record_best(file, heuristics[heuristic], winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
 
     return winner_node

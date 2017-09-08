@@ -125,12 +125,10 @@ class Board():
             self.board[vehicle.y+1][vehicle.x] = vehicle.id
             if vehicle.size == 3: self.board[vehicle.y+2][vehicle.x] = vehicle.id
         elif vehicle.orientation == vehicle.HORIZONTAL:
-            try:
-                self.board[vehicle.y][vehicle.x] = vehicle.id
-                self.board[vehicle.y][vehicle.x+1] = vehicle.id
-                if vehicle.size == 3: self.board[vehicle.y][vehicle.x+2] = vehicle.id
-            except Exception as e:
-                pass
+            self.board[vehicle.y][vehicle.x] = vehicle.id
+            self.board[vehicle.y][vehicle.x+1] = vehicle.id
+            if vehicle.size == 3: self.board[vehicle.y][vehicle.x+2] = vehicle.id
+
 
     def _place_vehicle_on_board_safe(self, vehicle: Vehicle):
         """ Places a vehicle on the map. Makes sure there is no

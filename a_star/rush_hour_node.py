@@ -64,6 +64,8 @@ class RushHourNode(Node):
         Points are given for the contents of each cell in the grid:
         Empty cell          = 1
         Vehicle in the cell = 2
+
+        # NOT ADMISSABLE.
         :return: heuristic
         """
 
