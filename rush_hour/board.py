@@ -42,7 +42,7 @@ class Board():
 
         for line in state.split("\n"):
             if line == "": continue
-            vehicle = Vehicle(int(line[2]), int(line[4]), int(line[0]), int(line[6]), ids[i], special=i==0)
+            vehicle = Vehicle(line, ids[i], special=i==0)
             self.vehicles.append(vehicle)
             self._place_vehicle_on_board(vehicle)
             i += 1
@@ -112,7 +112,7 @@ class Board():
                 state += str(vehicle.y+y) + ","
                 state += str(vehicle.size) + "\n"
             else:
-                state += v.spec() + "\n"
+                state += v.spec + "\n"
         return Board(state)
 
     def _place_vehicle_on_board(self, vehicle: Vehicle):

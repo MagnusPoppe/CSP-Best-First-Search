@@ -7,16 +7,17 @@ class Vehicle:
     FORWARDS = 0
     BACKWARDS = 1
 
-    def __init__(self, x, y, orientation, size, identifier, special=False):
+    def __init__(self, spec, identifier, special=False):
         # Coordinates for the top-left-corner of the object.
-        self.x = x
-        self.y = y
+        self.x = int(spec[2])
+        self.y = int(spec[4])
         self.id = identifier
 
         # Direction of the vehicle. Used for movement and
-        self.orientation = orientation
-        self.size = size
+        self.orientation = int(spec[0])
+        self.size = int(spec[6])
         self.special = special
+        self.spec = spec
 
     def __str__(self):
         if self.orientation == self.VERTICAL:
@@ -24,9 +25,6 @@ class Vehicle:
         else:
             orientation = "HORIZONTAL"
         return "at ("+str(self.x)+", "+str(self.y)+") in orientation " + orientation
-
-    def spec(self) -> str:
-        return str(self.orientation) + "," + str(self.x) + "," + str(self.y) + "," + str(self.size)
 
     def __eq__(self, other):
         """ True if all details match. """
