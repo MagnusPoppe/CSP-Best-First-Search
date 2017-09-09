@@ -23,9 +23,10 @@ if __name__ == '__main__':
     input = read_file_to_string(os.path.join(file_folder, file))
     board = NonogramBoard(input)
 
-    for y in range(board.h):
-        for x in range(board.w):
-            print(board.peek(x,y))
-            board.mark(x,y, board.untouched)
+    for y, row in enumerate(board.rows):
+        if len(row) == 1:
+            if row[0] > board.w /3:
+                diff = (board.w - row[0])
+                board.mark(board.w - row[0], y, x_range = row[0] - diff)
 
     print(board)

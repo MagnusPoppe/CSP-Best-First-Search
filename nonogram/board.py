@@ -28,8 +28,14 @@ class NonogramBoard():
             string += " ".join(str(elem) for elem in self.grid[y]) + "\n"
         return string
 
-    def mark(self, x:int, y:int, mark:int):
-        self.grid[y][x] = mark
+    def mark(self, x:int, y:int, mark:int=1, x_range=1, y_range=1):
+        if x_range > 1:
+            for xi in range(x, x+x_range):
+                self.grid[y][xi] = mark
+        if y_range > 1:
+            for yi in range(y, y+y_range):
+                self.grid[yi][x] = mark
+
 
     def peek(self, x, y):
         return self.grid[y][x]

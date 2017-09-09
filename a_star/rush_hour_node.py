@@ -35,7 +35,10 @@ class RushHourNode(Node):
 
     def euclidiean_distance(self) -> float:
         """ Pythagoras sentence for distance """
-        return math.sqrt(math.pow(5-self.board.vehicles[0].x, 2) + math.pow( 2 - self.board.vehicles[0].y , 2))
+        return self.pythagoras_sentence(self.board.vehicles[0].x,5,2,self.board.vehicles[0].y )
+
+    def pythagoras_sentence(self, x1, y1, x2, y2):
+        return math.sqrt(math.pow(x2-x1, 2) + math.pow(y2-y1, 2))
 
     def weighted_path_distance(self) -> int:
         """
@@ -77,8 +80,8 @@ class RushHourNode(Node):
         # Looping through the squares
         for xi in range(self.board.vehicles[0].x + self.board.vehicles[0].size, 5):
             for y in range(self.board.map_height):
-                score += empty_space if self.board.board[y][xi] == self.board.map_blank_space else vehicle_in_space
-
+                _point = empty_space if self.board.board[y][xi] == self.board.map_blank_space else vehicle_in_space
+                score += _point
         return score
 
     def is_solution(self) -> bool:
