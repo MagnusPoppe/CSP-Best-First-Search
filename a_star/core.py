@@ -1,7 +1,10 @@
 import time
+from tkinter import Tk
 
 from a_star.agenda import Agenda
 from a_star.node import Node
+from rush_hour.graphics import RushHourGUI
+
 
 class AStarCore():
 
@@ -11,11 +14,17 @@ class AStarCore():
     # Stats:
     nodes_generated = 0
 
-    def __init__(self, agenda: Agenda):
+    def __init__(self, agenda: Agenda, displaymode=False):
         self.closed = {}
         self.start_time = time.time()
         self.end_time = 0
         self.agenda = agenda
+
+        # For display mode with rush hour:
+        self.displaymode = displaymode
+        if displaymode:
+            self.gui = RushHourGUI("Running best first search with displaymode.")
+
 
     def reset(self):
         self.closed = None
@@ -39,6 +48,13 @@ class AStarCore():
     def time_used(self) -> float:
         return self.end_time-self.start_time
 
+    def display_node(self, node):
+        if not self.gui.properly_initialized:
+            self.gui.assign_colors(node)
+
+        self.gui.master.update()
+        self.gui.draw_board(node.board)
+
     def best_first_search(self):
         """
         Finds a solution using best-first search.
@@ -49,6 +65,9 @@ class AStarCore():
         while not self.agenda.is_empty():
             # Getting next node from the agenda:
             node = self.agenda.dequeue() # type: Node
+
+            if self.displaymode:
+                self.display_node(node)
 
             self.closed[hash(node)] = node
 

@@ -1,5 +1,7 @@
 import tkinter
 
+import time
+
 from a_star.rush_hour_node import RushHourNode
 from rush_hour.board import Board
 
@@ -11,17 +13,21 @@ class RushHourGUI():
     canvas_width = 300
     canvas_height = 300
 
-    def __init__(self, master, title, winner_node):
-        self.master = master # type: tkinter.Tk
+    def __init__(self, title, winner_node=None):
+        self.master = tkinter.Tk() # type: tkinter.Tk
+        self.master.title(title)
+        self.master.geometry('{}x{}'.format(self.canvas_width, self.canvas_height)) # Size of window.
+
         self.colorassignment = {}
-        for i in range(len(winner_node.board.vehicles)):
-            self.colorassignment[winner_node.board.vehicles[i].id] = self.colors[i]
-
-
-        master.title(title)
-        master.geometry('{}x{}'.format(self.canvas_width, self.canvas_height)) # Size of window.
         self.frameindex = 0
-        self.frames = self.get_frames(winner_node)
+        self.properly_initialized = False
+
+
+    def assign_colors(self, node):
+        self.properly_initialized = True
+        for i in range(len(node.board.vehicles)):
+            self.colorassignment[node.board.vehicles[i].id] = self.colors[i]
+
 
     def get_frames(self, node):
         if not node.parent: return [node.board]
@@ -49,3 +55,4 @@ class RushHourGUI():
 
         self.canvas = canvas
         self.frameindex += 1
+        time.sleep(.2)

@@ -19,14 +19,16 @@ best_solution = [16, 24, 33, 73, 93]
 minimum_nodes = [77, 611, 923, 5685, 24132]
 files = ["easy-3.txt", "medium-1.txt", "hard-3.txt", "expert-2.txt", "expert-1.txt"]
 heuristics = ["Manhatten", "Euclidiean", "Weighted path", "all-in-front"]
+
+
 def display_results(solution, title):
     # Displaying result in gui:
-    root = Tk()
-    gui = RushHourGUI(root, title, winner_node)
-    while gui.frameindex < len(gui.frames):
-        root.update()
-        gui.draw_board(gui.frames[gui.frameindex])
-        time.sleep(.2)
+    gui = RushHourGUI(title, solution)
+    frames = gui.get_frames(solution)
+    gui.assign_colors(solution)
+    while gui.frameindex < len(frames):
+        gui.master.update()
+        gui.draw_board(frames[gui.frameindex])
 
 best = {}
 def record_best(file, heuristic, moves, time, analyzed, total_nodes):
@@ -95,7 +97,7 @@ def run(file, heuristic=0):
     agenda.enqueue(node)
 
     # Running A*:
-    astar = AStarCore(agenda)
+    astar = AStarCore(agenda, displaymode=True)
     winner_node = astar.best_first_search()
 
     # Printing stats:
