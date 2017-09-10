@@ -13,7 +13,7 @@ from file_tostring import read_file_to_string
 from rush_hour.board import Board
 from rush_hour.graphics import RushHourGUI
 
-map_folder = "/Users/MagnusPoppe/Desktop/OneDrive/Utvikling/appsPython/AI_project_1/rush_hour/maps"
+map_folder = "/Users/MagnusPoppe/Google Drive/Utvikling/appsPython/AI_project_1/rush_hour/maps"
 
 best_solution = [16, 24, 33, 73, 93]
 minimum_nodes = [77, 611, 923, 5685, 24132]
