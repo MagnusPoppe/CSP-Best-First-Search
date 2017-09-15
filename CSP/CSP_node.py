@@ -23,7 +23,7 @@ class CSPNode(Node):
 
         # Dette blir alle mulige noder som skal sjekkes. Neste "assumption".
         # Altså, noder som skal brukes med GAC algoritmen.
-        self.children = self.generate_csps()  # type: list
+        self.queue = self.generate_csps()  # type: list
 
     def __hash__(self):
         pass
@@ -33,29 +33,44 @@ class CSPNode(Node):
             return d <= y <= d+x
         return constraint
 
-    def generate_csps(self):
+    def generate_csps(self) -> list:
+        """
+        Metoden genererer en nøstet liste som tilsvarer en CSP kø. Denne
+        Køen inneholder en rekke funksjoner som skal representere en constraint.
+        En CSP solver kan gå igjennom alle disse funksjonskallene og se om det
+        er noen av dem som er ugyldige og kan fjernes.
+        """
+
         def generate(rows, columns):
             """ O(N6)... wow. """
             csp = []
             for row in rows: # type: Entry
-                csp_queue = []
+                variable_domain_dict = {}
                 for variable, variable_domain in row:
+                    variable_domain_dict[variable] = []
                     for domain in variable_domain:
                         # Nå ser vi på hvert enkelt domene med hver enkelt variabel:
+                        csp_queue = []
                         for column in columns:
                             for individual_values in column.possibles:
                                 for value in individual_values:         # Hver verdi i rekken av verdier.
                                     if value == 1: # kan kun være 0 eller 1.
-                                       csp_queue += [self.make_constraint(variable, domain, value)]
-                csp.append(csp_queue)
+                                        csp_queue += [self.make_constraint(variable, domain, value)]
+                        variable_domain_dict[variable].append(csp_queue)
+                csp.append(variable_domain_dict)
             return csp
 
-        start = time.time()
-        output = generate(self.state.rows, self.state.columns) + generate(self.state.columns, self.state.rows)
-        print("Runtime for GenerateCSPS: " + str(time.time() - start) + " sec")
-        print("Number of constraints:    " + str(len(output)))
+        # start = time.time()
 
-        return output
+        # Generating CSP:
+        rows    = generate(self.state.rows, self.state.columns)
+        columns = generate(self.state.columns, self.state.rows)
+
+        # Printing stats:
+        # print("Runtime for GenerateCSPS: " + str(time.time() - start) + " sec")
+        # print("Number of constraints:    " + str(len(rows) + len(columns)))
+
+        return rows + columns
 
     def create_children(self):
         pass

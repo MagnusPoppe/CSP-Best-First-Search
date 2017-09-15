@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2cf8151-6c80-4e9e-b64b-7445247b628f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CSP/CSP_node.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CSP/datastructure.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nonogram/entry.py" afterPath="$PROJECT_DIR$/nonogram/entry.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CSP/CSP_node.py" afterPath="$PROJECT_DIR$/CSP/CSP_node.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test_constraints.py" afterPath="$PROJECT_DIR$/tests/test_constraints.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,7 +19,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/AI_project_1$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1505397735737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/AI_project_1$Unittest_TestDomains_test_CSP_node.coverage" NAME="Unittest TestDomains.test_CSP_node Coverage Results" MODIFIED="1505465324574" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/AI_project_1$Unittest_TestDomains_test_CSP_node.coverage" NAME="Unittest TestDomains.test_CSP_node Coverage Results" MODIFIED="1505467021538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/AI_project_1$nonogram.coverage" NAME="nonogram Coverage Results" MODIFIED="1505313350869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nonogram" />
     <SUITE FILE_PATH="coverage/AI_project_1$Expert.coverage" NAME="Expert Coverage Results" MODIFIED="1504872704014" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AI_project_1$Unittests_in_test_board.coverage" NAME="Unittests in test_board Coverage Results" MODIFIED="1503652133446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -46,14 +46,24 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="CSP_node.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="CSP_node.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/CSP/CSP_node.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="742">
-                  <caret line="45" column="70" lean-forward="true" selection-start-line="45" selection-start-column="70" selection-end-line="45" selection-end-column="70" />
+                <state relative-caret-position="460">
+                  <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="datastructure.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/CSP/datastructure.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="360">
+                  <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -62,7 +72,7 @@
             <entry file="file://$PROJECT_DIR$/nonogram/puzzle.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="280">
-                  <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+                  <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -75,8 +85,8 @@
           <file leaf-file-name="test_constraints.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tests/test_constraints.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="480">
-                  <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+                <state relative-caret-position="580">
+                  <caret line="35" column="76" lean-forward="false" selection-start-line="35" selection-start-column="76" selection-end-line="35" selection-end-column="76" />
                   <folding />
                 </state>
               </provider>
@@ -176,6 +186,8 @@
         <option value="$PROJECT_DIR$/nonogram/entry.py" />
         <option value="$PROJECT_DIR$/tests/test_constraints.py" />
         <option value="$PROJECT_DIR$/CSP/CSP_node.py" />
+        <option value="$PROJECT_DIR$/CSP/Variable.py" />
+        <option value="$PROJECT_DIR$/CSP/datastructure.py" />
       </list>
     </option>
   </component>
@@ -779,38 +791,45 @@
       <option name="project" value="LOCAL" />
       <updated>1505462616812</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Found a way to represent constraints. WAY TO SLOW on bigger puzzles.">
+      <created>1505465477011</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1505465477011</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 40m 38s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 55m 25s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 41m 13s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 00m 58s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 43m 16s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 02m 05s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 45m 24s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 02m 19s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 45m 56s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 02m 21s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 46m 19s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 05m 16s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 47m 05s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 06m 00s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 47m 10s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 06m 21s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 48m 22s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 17m 01s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 10h 48m 35s.xml">
+    <history-entry file="Unittest_TestDomains_test_CSP_node - 2017.09.15 at 11h 50m 40s.xml">
       <configuration name="Unittest TestDomains.test_CSP_node" configurationId="tests" />
     </history-entry>
   </component>
@@ -824,11 +843,11 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329927" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23357664" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="399" y="814" width="1228" height="218" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23357664" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="399" y="814" width="1228" height="218" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27142859" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2788321" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2788321" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -857,7 +876,8 @@
     <MESSAGE value="Fundamentals for arc-consistency algorithm.&#10;" />
     <MESSAGE value="Added display_mode for astar algorithm on the rush hour problem" />
     <MESSAGE value="Added representation of the CSP. Domains can now be calculated. Also, all possible row/column combinations can be calculated." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added representation of the CSP. Domains can now be calculated. Also, all possible row/column combinations can be calculated." />
+    <MESSAGE value="Found a way to represent constraints. WAY TO SLOW on bigger puzzles." />
+    <option name="LAST_COMMIT_MESSAGE" value="Found a way to represent constraints. WAY TO SLOW on bigger puzzles." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -867,6 +887,16 @@
           <line>24</line>
           <option name="timeStamp" value="191" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/test_constraints.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="283" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CSP/CSP_node.py</url>
+          <line>60</line>
+          <option name="timeStamp" value="284" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -875,18 +905,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="275" />
+      <option name="time" value="285" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rush_hour/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="31" column="102" lean-forward="false" selection-start-line="31" selection-start-column="102" selection-end-line="31" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/maps/hardest_rushhour.txt" />
     <entry file="file://$PROJECT_DIR$/rush_hour/board.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -961,13 +984,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/maps/hardest_rushhour.txt" />
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.3/python_stubs/79398302/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="1268" column="8" lean-forward="false" selection-start-line="1268" selection-start-column="8" selection-end-line="1268" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.6.0_1/Frameworks/Python.framework/Versions/3.6/lib/python3.6/tkinter/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
@@ -1196,8 +1212,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/a_star/node.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1205,25 +1221,41 @@
     <entry file="file://$PROJECT_DIR$/nonogram/puzzle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_constraints.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="35" column="76" lean-forward="false" selection-start-line="35" selection-start-column="76" selection-end-line="35" selection-end-column="76" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CSP/CSP_node.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="45" column="70" lean-forward="true" selection-start-line="45" selection-start-column="70" selection-end-line="45" selection-end-column="70" />
+        <state relative-caret-position="460">
+          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_constraints.py">
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.3/python_stubs/79398302/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        <state relative-caret-position="320">
+          <caret line="3668" column="8" lean-forward="false" selection-start-line="3668" selection-start-column="8" selection-end-line="3668" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CSP/datastructure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
