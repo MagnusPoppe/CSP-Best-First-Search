@@ -90,6 +90,7 @@ class AStarCore():
                         continue
                     else: # child < other_node
                         # Calculate new values for all children of other_node.
+                        # This should maybe add back into agenda?
                         other_node.recalculate_G_for_all_children(child)
 
                 elif child in self.agenda:

@@ -10,14 +10,16 @@ class RushHourGUI():
 
     colors = ["black", "green", "purple", "yellow", "orange", "blue", "pink", "cyan", "magenta", "salmon",
               "dark grey", "light grey", "maroon", "light yellow"]
-    canvas_width = 300
-    canvas_height = 300
 
-    def __init__(self, title, winner_node=None):
+
+    def __init__(self, title, speed=0.2, window_width=300, window_height=300):
         self.master = tkinter.Tk() # type: tkinter.Tk
         self.master.title(title)
+        self.canvas_width = window_width
+        self.canvas_height = window_height
         self.master.geometry('{}x{}'.format(self.canvas_width, self.canvas_height)) # Size of window.
 
+        self.speed = speed
         self.colorassignment = {}
         self.frameindex = 0
         self.properly_initialized = False

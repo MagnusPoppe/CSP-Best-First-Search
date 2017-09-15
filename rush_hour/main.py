@@ -23,7 +23,7 @@ heuristics = ["Manhatten", "Euclidiean", "Weighted path", "all-in-front"]
 
 def display_results(solution, title):
     # Displaying result in gui:
-    gui = RushHourGUI(title, solution)
+    gui = RushHourGUI(title, speed=0.3)
     frames = gui.get_frames(solution)
     gui.assign_colors(solution)
     while gui.frameindex < len(frames):
@@ -39,6 +39,7 @@ def record_best(file, heuristic, moves, time, analyzed, total_nodes):
             "nodes-analyzed": {"stat": sys.maxsize, "heuristic": ""},
             "total-nodes": {"stat": sys.maxsize, "heuristic": ""}
         }
+    moves = moves-1
     if moves < best[file]["moves"]["stat"]:
         best[file]["moves"]["stat"] = moves
         best[file]["moves"]["heuristic"] = heuristic
@@ -55,13 +56,13 @@ def record_best(file, heuristic, moves, time, analyzed, total_nodes):
         best[file]["total-nodes"]["stat"] = total_nodes
         best[file]["total-nodes"]["heuristic"] = heuristic
 
-def print_stats(file, heuristic, moves, time, analyzed, total_nodes):
+def print_stats(file, heuristic, node, time, analyzed, total_nodes):
     print("RESULTS FOR FILE:    " + file)
     print("Heuristic algorithm: " + heuristic)
-    print("Moves used:          " + str(moves) + " / " + str(best_solution[i]) + " (BEST)")
     print("Time used (seconds): " + str(time))
-    print("Nodes analyzed:      " + str(analyzed))
-    print("Nodes seen:          " + str(total_nodes) + " / " + str(minimum_nodes[i]) + " (BEST)")
+    print("Steps to solution:   " + str(node.g-1) + " / " + str(best_solution[i]) + " (BEST)")
+    print("Nodes expanded:      " + str(analyzed))
+    print("Nodes generated:          " + str(total_nodes) + " / " + str(minimum_nodes[i]) + " (BEST)")
     print("\n")
 
 def print_best_stats(file):
@@ -97,11 +98,11 @@ def run(file, heuristic=0):
     agenda.enqueue(node)
 
     # Running A*:
-    astar = AStarCore(agenda, displaymode=True)
+    astar = AStarCore(agenda, displaymode=False)
     winner_node = astar.best_first_search()
 
     # Printing stats:
-    print_stats(file, heuristics[heuristic], winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
+    print_stats(file, heuristics[heuristic], winner_node, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
     record_best(file, heuristics[heuristic], winner_node.g, astar.time_used(), astar.nodes_analyzed(), astar.total_nodes())
 
     return winner_node
@@ -120,10 +121,10 @@ if __name__ == '__main__':
 
     if file:
         winner_node = run(file, heuristic_algorithm)
-        print_best_stats(file)
+        # print_best_stats(file)
         if use_gui: display_results(winner_node, file)
     else:
         for i in range(len(files)):
             winner_node = run(files[i], heuristic_algorithm)
-            print_best_stats(files[i])
+            # print_best_stats(files[i])
             if use_gui: display_results(winner_node, files[i])

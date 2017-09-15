@@ -1,4 +1,4 @@
-from nonogram.nano_entry import NanoEntry
+from nonogram._old.nano_entry import NanoEntry
 
 
 class NonogramBoard():
@@ -13,7 +13,7 @@ class NonogramBoard():
         self.h  = int(spec[0])
         self.w  = int(spec[2])
         self.grid    = [[0] * self.w for i in range(self.h)]
-        self.rows    = [NanoEntry( lines[i].split() ) for i in range(1, self.h)]
+        self.rows    = [NanoEntry( lines[i].split() ) for i in range(self.h, 1)]
         self.columns = [NanoEntry( lines[i].split() ) for i in range(self.h, self.h + self.w)]
 
     def __hash__(self):
