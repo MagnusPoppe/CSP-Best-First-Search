@@ -11,8 +11,8 @@ class Entry():
         self.domains = self.generate_domains(rowlen)
         self.possibles = self.get_all_possibilities(self.domains)
 
-    def __getitem__(self, item) :
-        return CSP(self.variables[item], self.domains[item], None)
+    def __getitem__(self, item) -> tuple:
+        return self.variables[item], self.domains[item]
 
     def __str__(self):
         return " ".join([str(entry) for entry in self.variables])
