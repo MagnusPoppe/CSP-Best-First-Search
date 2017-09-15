@@ -1,7 +1,8 @@
 import os
 import unittest
-from itertools import permutations, product
 
+from CSP.CSP_node import CSPNode
+from CSP.GAC import revise
 from file_tostring import read_file_to_string
 from nonogram.main import files, file_folder
 from nonogram.puzzle import Puzzle
@@ -27,20 +28,32 @@ class TestDomainsAndVariables(unittest.TestCase):
         self.assertEqual(len(puzzle.columns), int(first_line[0]), "Not correct width of board.")
         self.assertEqual(len(puzzle.rows), int(first_line[1]), "Not correct height of board.")
 
-    def test_create_tuple(self):
-        total = 0
-        for i, puzzle in enumerate(self.puzzles):
-            for entry in puzzle.rows + puzzle.columns:
-                possibilities = []
-                possibilities += entry.get_all_possibilities(entry.domains)
+    def test_revise_algorithm(self):
+        puzzle = self.puzzles[0] # Example puzzle.
+        x = CSPNode(None, puzzle)
+        revise(x.queue)
 
-                number_of_possibilities = len(entry.domains[0])
-                self.assertTrue(number_of_possibilities >= 1, "No possible solutions found.")
-                for domain in entry.domains[1:]:
-                    number_of_possibilities *= len(domain)
+    def test_CSP_node(self):
 
-                self.assertEqual(len(possibilities), number_of_possibilities)
-                total += number_of_possibilities
+        puzzle = self.puzzles[0] # Example puzzle.
+
+        x = CSPNode(None, puzzle)
+        length = sum([len(child) for child in x.children])
+        # self.assertEqual(len(x.children), puzzle.w + puzzle.h)
+
+        t = 0
+        y = 0
+        # Counting True/False values:
+        for child in x.children:
+            temp_t = 0
+            while child:
+                constraint = child.pop(0)
+                temp_t += 1 if constraint() else 0
+            if temp_t == 0:
+                y += 1
+            t += temp_t
+        # self.assertTrue( y > 0, "None of the domain values could be removed.")
+        pass
 
 if __name__ == '__main__':
     unittest.main()

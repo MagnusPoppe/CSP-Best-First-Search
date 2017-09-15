@@ -1,8 +1,7 @@
 import time
 
 from a_star.node import Node
-from nonogram.entry import Entry
-from nonogram.puzzle import Puzzle
+from nonogram.puzzle import Puzzle, Entry
 
 
 class CSPNode(Node):

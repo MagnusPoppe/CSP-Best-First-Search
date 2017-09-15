@@ -17,6 +17,7 @@ def revise(constraint, xi, xj) -> bool:
     pass
 
 
+
 ##########
 # SÅ VIDT JEG FORSTÅR:
 # Man queuer alle variabler med fulle domener. Målet med algoritmen er å gjøre domenene mindre.
@@ -50,13 +51,14 @@ def arc_consistancy(queue: list):
                         add (Xk, Xi) to queue
         return true
     """
-    while queue:
-        xi = queue.pop(0) # type: CSP
-        xj = queue.pop(1) # type: CSP
-        if not revise(dummy_constraint, xi, xj):
-            if len(xi.d) == 0: return False
-                # add_children...
-
-    return True
+    pass
+    # while queue:
+    #     xi = queue.pop(0) # type: CSP
+    #     xj = queue.pop(1) # type: CSP
+    #     if not revise(dummy_constraint, xi, xj):
+    #         if len(xi.d) == 0: return False
+    #             # add_children...
+    #
+    # return True
 
 
