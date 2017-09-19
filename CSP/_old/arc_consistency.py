@@ -1,6 +1,3 @@
-from CSP._old.CSP import CSP
-
-
 def revise(constraint, xi, xj) -> bool:
     """
     PSEUDO CODE FROM THE BOOK, ARTIFICIAL INTELLIGENCE, A MODERN APPROACH:

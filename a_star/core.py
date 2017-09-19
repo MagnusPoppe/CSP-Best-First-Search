@@ -66,8 +66,7 @@ class AStarCore():
             # Getting next node from the agenda:
             node = self.agenda.dequeue() # type: Node
 
-            if self.displaymode:
-                self.display_node(node)
+            if self.displaymode: self.display_node(node)
 
             self.closed[hash(node)] = node
 

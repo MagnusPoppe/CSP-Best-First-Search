@@ -1,5 +1,7 @@
 import time
 
+from CSP._old.datastructure import Domain, Constraint
+from CSP._old.datastructure import Variable
 from a_star.node import Node
 from nonogram.puzzle import Puzzle, Entry
 
@@ -41,35 +43,36 @@ class CSPNode(Node):
         """
 
         def generate(rows, columns):
-            """ O(N6)... wow. """
+            """ O(N9)... wow. """
             csp = []
-            for row in rows: # type: Entry
-                variable_domain_dict = {}
-                for variable, variable_domain in row:
-                    variable_domain_dict[variable] = []
-                    for domain in variable_domain:
+            for variables in rows: # type: Entry
+                for variable in variables:  # type: Variable
+                    for domain in variable.domain: # type: Domain
                         # Nå ser vi på hvert enkelt domene med hver enkelt variabel:
                         csp_queue = []
-                        for column in columns:
-                            for individual_values in column.possibles:
-                                for value in individual_values:         # Hver verdi i rekken av verdier.
-                                    if value == 1: # kan kun være 0 eller 1.
-                                        csp_queue += [self.make_constraint(variable, domain, value)]
-                        variable_domain_dict[variable].append(csp_queue)
-                csp.append(variable_domain_dict)
-            return csp
-
-        # start = time.time()
+                        for other_variables in columns:
+                            for other_variable in other_variables:
+                                for other_domain in other_variable.domain:
+                                    for _list in other_domain.possibles:
+                                        for value in _list: # Hver verdi i rekken av verdier.
+                                            if value == 1:  # kan kun være 0 eller 1.
+                                                c = Constraint(
+                                                    self.make_constraint(variable.value, domain.value, value),
+                                                    [_list]
+                                                )
+                                                domain.constraints += [c]
+        start = time.time()
 
         # Generating CSP:
-        rows    = generate(self.state.rows, self.state.columns)
-        columns = generate(self.state.columns, self.state.rows)
+        generate(self.state.rows, self.state.columns)
+        generate(self.state.columns, self.state.rows)
 
         # Printing stats:
-        # print("Runtime for GenerateCSPS: " + str(time.time() - start) + " sec")
-        # print("Number of constraints:    " + str(len(rows) + len(columns)))
-
-        return rows + columns
+        print("Runtime for GenerateCSPS: " + str(time.time() - start) + " sec")
+        queue = []
+        for _list in self.state.rows + self.state.columns:
+            queue += [entry for entry in _list]
+        return queue
 
     def create_children(self):
         pass

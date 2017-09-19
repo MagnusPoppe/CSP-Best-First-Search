@@ -1,8 +1,8 @@
 import os
 import unittest
 
-from CSP.CSP_node import CSPNode
-from CSP.GAC import revise
+from CSP import CSPNode
+from CSP import revise, GAC_loop
 from file_tostring import read_file_to_string
 from nonogram.main import files, file_folder
 from nonogram.puzzle import Puzzle
@@ -28,10 +28,31 @@ class TestDomainsAndVariables(unittest.TestCase):
         self.assertEqual(len(puzzle.columns), int(first_line[0]), "Not correct width of board.")
         self.assertEqual(len(puzzle.rows), int(first_line[1]), "Not correct height of board.")
 
+
+
     def test_revise_algorithm(self):
         puzzle = self.puzzles[0] # Example puzzle.
         x = CSPNode(None, puzzle)
-        revise(x.queue)
+
+        initial = len(x.state.rows[0][0].domain)
+        # HVA GÅR INN HER?!
+        revise(x.state.rows[0][0])
+        self.assertTrue(initial > len(x.state.rows[0][0].domain), "No changes in domain when changes should happen.")
+
+        count = 0
+        while x.state.rows:
+            variables = x.state.rows.pop(0)
+            for variable in variables:
+                if revise(variable):
+                   count += 1
+
+    def test_GAC_loop(self):
+        puzzle = self.puzzles[0] # Example puzzle.
+        x = CSPNode(None, puzzle)
+        if (GAC_loop(x.queue)):
+            y=2
+        else:
+            y=1
 
     def test_CSP_node(self):
 

@@ -1,4 +1,7 @@
-from CSP.datastructure import Variable, Domain
+# from CSP._old import Variable, Domain
+from CSP._old import GAC
+from CSP._old.datastructure import Variable, Domain
+
 
 class Puzzle():
 
@@ -10,8 +13,8 @@ class Puzzle():
         self.w = w = int(first_line[0])
         self.h = h = int(first_line[1])
         self.grid = [[0] * h for i in range(w)]
-        self.rows = [Entry(lines[i].split(), w) for i in range(h, 0, -1)]
-        self.columns = [Entry(lines[i].split(), h) for i in range(h + 1, h + w + 1)]
+        self.rows = [Entry(lines[i].split(), w, GAC.ROW) for i in range(h, 0, -1)]
+        self.columns = [Entry(lines[i].split(), h, GAC.COL) for i in range(h + 1, h + w + 1)]
 
         for i in range(len(self.rows)):
             self.rows[i] = self.rows[i].datastructure
@@ -22,10 +25,10 @@ class Puzzle():
 
 class Entry():
 
-    def __init__(self, specs: list, rowlen):
+    def __init__(self, specs: list, rowlen, type):
         self.variables = [int(element) for element in specs]
         self.length = rowlen
-
+        self.type = type
         # Creating CSP variables.
         self.domains = self.generate_domains(rowlen)
 
@@ -37,9 +40,9 @@ class Entry():
         self.possibles = self.get_all_possibilities(self.domains, aggregate=True)
 
     def generate_variable(self, var, domain_values):
-        v = Variable(var)
+        v = Variable(var, self.type)
         for d in domain_values:
-            _d = Domain(v, d, [], None)
+            _d = Domain(v, d, [])
             v.map_domain[d] = _d
             v.domain.append(_d)
         return v
