@@ -14,7 +14,7 @@ class AStarCore():
     # Stats:
     nodes_generated = 0
 
-    def __init__(self, agenda: Agenda, displaymode=False):
+    def __init__(self, agenda: Agenda, displaymode=False, gui=None):
         self.closed = {}
         self.start_time = time.time()
         self.end_time = 0
@@ -23,19 +23,12 @@ class AStarCore():
         # For display mode with rush hour:
         self.displaymode = displaymode
         if displaymode:
-            self.gui = RushHourGUI("Running best first search with displaymode.")
+            self.gui = gui
 
 
     def reset(self):
         self.closed = None
         self.agenda = None
-
-    def is_solution(self, node):
-        """
-        This needs to be overwritten by specified algorithm. The method should check
-        if a node is a solution to the problem A* is trying to solve.
-        """
-        pass
 
     def total_nodes(self) -> int:
         """ Just for stats... """
@@ -52,8 +45,8 @@ class AStarCore():
         if not self.gui.properly_initialized:
             self.gui.assign_colors(node)
 
-        self.gui.master.update()
         self.gui.draw_board(node.board)
+        self.gui.master.update()
 
     def best_first_search(self):
         """
@@ -92,7 +85,7 @@ class AStarCore():
                         # This should maybe add back into agenda?
                         other_node.recalculate_G_for_all_children(child)
 
-                elif child in self.agenda:
+                elif child in self.agenda: # TODO: Maybe implement hashcode?!
                     # Node has been seen before, but has not yet been evaluated.
                     # It should not have any children if the elif is True.
                     other_node = self.agenda.get_node(hash(child))

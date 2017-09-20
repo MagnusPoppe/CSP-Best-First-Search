@@ -17,7 +17,7 @@ map_folder = "/Users/MagnusPoppe/Google Drive/Utvikling/appsPython/AI_project_1/
 
 best_solution = [16, 24, 33, 73, 93]
 minimum_nodes = [77, 611, 923, 5685, 24132]
-files = ["easy-3.txt", "medium-1.txt", "hard-3.txt", "expert-2.txt", "expert-1.txt"]
+files = ["easy-3.txt", "medium-1.txt", "hard-3.txt", "expert-2.txt"]#, "expert-1.txt"]
 heuristics = ["Manhatten", "Euclidiean", "Weighted path", "all-in-front"]
 
 
@@ -62,7 +62,7 @@ def print_stats(file, heuristic, node, time, analyzed, total_nodes):
     print("Time used (seconds): " + str(time))
     print("Steps to solution:   " + str(node.g-1) + " / " + str(best_solution[i]) + " (BEST)")
     print("Nodes expanded:      " + str(analyzed))
-    print("Nodes generated:          " + str(total_nodes) + " / " + str(minimum_nodes[i]) + " (BEST)")
+    print("Nodes generated:     " + str(total_nodes) + " / " + str(minimum_nodes[i]) + " (BEST)")
     print("\n")
 
 def print_best_stats(file):
@@ -76,7 +76,7 @@ def print_best_stats(file):
           " @ " + str(stats["time"]["stat"]))
     print("\n")
 
-def run(file, heuristic=0):
+def run(file, heuristic=0, display_mode=False):
     astar = None
 
     # Teardown:
@@ -98,7 +98,7 @@ def run(file, heuristic=0):
     agenda.enqueue(node)
 
     # Running A*:
-    astar = AStarCore(agenda, displaymode=False)
+    astar = AStarCore(agenda, displaymode=display_mode, gui=RushHourGUI("Running best first search with displaymode."))
     winner_node = astar.best_first_search()
 
     # Printing stats:
@@ -110,21 +110,23 @@ def run(file, heuristic=0):
 if __name__ == '__main__':
     file = None
     use_gui = False
+    display_mode = False
     if len(sys.argv) == 3:
         use_gui = len(sys.argv) > 1 and sys.argv[1] == "-gui"
-        file = sys.argv[2]
+        display_mode = sys.argv[2] == "-displaymode"
     elif len(sys.argv) == 2:
         use_gui = len(sys.argv) > 1 and sys.argv[1] == "-gui"
         if not use_gui: file = sys.argv[1]
 
-    heuristic_algorithm = 3
+
+    heuristic_algorithm = 0
 
     if file:
-        winner_node = run(file, heuristic_algorithm)
+        winner_node = run(file, heuristic_algorithm, display_mode)
         # print_best_stats(file)
         if use_gui: display_results(winner_node, file)
     else:
         for i in range(len(files)):
-            winner_node = run(files[i], heuristic_algorithm)
+            winner_node = run(files[i], heuristic_algorithm, display_mode)
             # print_best_stats(files[i])
             if use_gui: display_results(winner_node, files[i])

@@ -3,7 +3,8 @@ def revise(constraint, xi, xj) -> bool:
     PSEUDO CODE FROM THE BOOK, ARTIFICIAL INTELLIGENCE, A MODERN APPROACH:
     Section 6.3 page 209
 
-    function REVISE(csp, Xi, Xj) returns true if we revise the domain of Xi revised ← false
+    function REVISE(csp, Xi, Xj) returns true if we revise the domain of Xi
+        revised ← false
         for each x in Di do
             if no value y in Dj allows (x,y) to satisfy the constraint between Xi and Xj then
                 delete x from Di

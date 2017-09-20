@@ -1,45 +1,60 @@
-from CSP._old.datastructure import Constraint
-from CSP._old.datastructure import Domain
-from CSP._old.datastructure import Variable
-
-ROW = 0
-COL = 1
 
 
-def revise(variable: Variable) -> bool:
-    # Initial number of domains is saved for later comparison.
-    initial_number_of_domains = len(variable.domain)
+def constraint_factory(x, xi, xc, xt, y, yi, yc, yt):
+    """ Creates a constraint based on variables given: """
+    def intersection():
+        expression = (xt != yt) and ((x <= yi) and (yi < x + xc))  and (  (y <= xi) and (xi < y + yc) )
+        return expression
 
-    # Looping through the entire domain of the variable
-    # and running all constraints.
-    for domain in variable.domain:  # type: Domain
-        positive = 0
-        for constraint in domain.constraints: # type: Constraint
-            # This constraint is upheld.
-            if constraint.run(): positive += 1
+    def space_inbetween():
+        # debug = str(x+xc) + " < " + str(y)
+        expression = xt == yt and x + xc < y
+        return expression
 
-        # If no valid constrait, the domain value is trash
-        if positive == 0:
-            # No legal move found for this domain value:
-            variable.delete(domain)
+    if xt == yt:
+        return space_inbetween
+    else:
+        return intersection
 
-    return initial_number_of_domains > len(variable.domain)
+def revise(m, n):
+    initial_domain = len(m.domain)
+    for mx in m.domain:
+        remove = True
+        for nx in n.domain:
+            constraint = constraint_factory(mx, m.index, m.constant, m.type, nx, n.index, n.constant, n.type)
+            if constraint():
+                dont_remove=False
+                break
+        if remove:
+            m.domain.remove(mx)
+            break
 
-def GAC_loop(queue):
-    seen = {ROW:[], COL:[]}
+        # Hvis det eksisterer en constraint som tilfredstilles, ikke endre domene.
+        # if all([ not constraint() for constraint in constraints ] ):
+        #     m.domain.remove(mx)
 
+    return len(m.domain) != initial_domain
+
+# def revise(m, n):
+#     initial_domain = len(m.domain)
+#     for nx in n.domain:
+#         constraint = constraint_factory(m.domain[0], m.index, m.constant, m.type, nx, n.index, n.constant, n.type)
+#         if constraint(): return False
+#
+#     m.domain.remove(m.domain[0])
+#     return len(m.domain) != initial_domain
+
+
+def GAC( queue: list ) -> bool :
+
+    seen = []
     while queue:
-        todo = queue.pop(0)
-        seen[todo.type].append(todo)
-        if revise(todo):
-            if len(seen[todo.type]) > 0:
-                queue += seen[todo.type]
-                seen[todo.type] = []
-            # Domain has changed, do something with children..
-        elif len(todo.domain) > 0:
-            seen[todo.type].append(todo)
+        x1, x2 = queue.pop(0)
+        if revise(x1, x2):
+            if len(x1.domain) == 0: return False
+            for node1, node2 in seen:
+                # if node2 == x1 or node1 == x1: queue.append((node1, node2))
+                if node2 == x1: queue.append((node1, node2))
 
-        # NO ADDING IF THERE IS NO CHANGES.
-        # else:
-        #     queue.append(todo)
-    return False
+        seen.append((x1,x2))
+    return True

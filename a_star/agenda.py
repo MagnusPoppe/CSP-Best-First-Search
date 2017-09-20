@@ -35,6 +35,7 @@ class Agenda():
         adds a node to the hashmap.
         """
         if not isinstance(node, Node): raise TypeError("Agenda does not support " + str(node) + ".")
+        # self._queue.insert(0,node)
         self._queue.append(node)
         self._queue.sort() # Uses the comparator in the Node class.
         self._map[hash(node)] = node

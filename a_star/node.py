@@ -18,6 +18,7 @@ class Node():
         pass
 
 
+
     # Implemented methods to support compare and default comparator:
     def __cmp__(self, other):
         return self.f - other.f
