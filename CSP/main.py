@@ -26,7 +26,7 @@ files = [
  ]
 
 if __name__ == '__main__':
-    for file in files[-3:-2]:
+    for file in files[-6:-5]:
         print("\nCalculating " + file)
         _initial_state = State(read_file_to_string(os.path.join(file_folder, file)))
 
