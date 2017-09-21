@@ -5,6 +5,9 @@ There are two tasks (Contents).
 1. Solve the rush hour problem with best-first search.
 2. Solve the nonogram problem with constraint-satisfation-problem + best-first-search.
 
+The following is the reports written for the assignment. I've only written about what was needed, since there was a restriction on number of pages per report. 
+
+The reports are written in Norwegian.
 
 ## Modul 1: A* og “Rush Hour”
 
@@ -20,9 +23,12 @@ For denne oppgaven har jeg laget tre forskjelige heuristiske funksjoner. Jeg beg
 Manhatten distansen ble veldig enkel for Rush Hour problemet, man har alltid samme Y-koordinat for bilden som er interessant. Der bilens X-koordinat er betegnet som “x” blir regnestykket som følger: 
 
 
+![Heuristic function](https://github.com/MagnusPoppe/CSP-Best-First-Search/blob/master/images_readme/Heuristic%20manhatten.png?raw=true)
+
 ###### Euclidiean distanse: 
 Denne distansen er også veldig enkel for Rush Hour probelmet. Dette blir pythagoras læresetning. Igjen, siden det ikke er noe Y-koordinat vil dette regnestykket alltid gi tilbake et heltall og da akkurat det samme heltallet som Manhatten gir. Der bilens X-koordinat er betegnet som x og Y-koordinaten er y:
 
+![Heuristic function](https://github.com/MagnusPoppe/CSP-Best-First-Search/blob/master/images_readme/heuristic%20Euclidiean.png?raw=true)
 
 ###### Weighted Path Distance:
 Vektet sti er en egendefinert algoritme som gjør en enkel beregning av alt som er direkte foran hovedbilen. Dette er da alle koordinater som er større enn bilens X-koordinat og har samme Y koordinat (2). For hver av disse posisjonene gir den poeng etter rutens innhold. 
@@ -31,6 +37,7 @@ Vektet sti er en egendefinert algoritme som gjør en enkel beregning av alt som 
 Dette gir formelen: 
 
 
+![Heuristic function](https://github.com/MagnusPoppe/CSP-Best-First-Search/blob/master/images_readme/Heuristic%20weighted%20path.png?raw=true)
 
 Der poeng(x,y) er formelen for poeng gitt en koordinat. 
 
@@ -41,6 +48,7 @@ Alt-foran er basert på vektet sti i sin funksjon. Istedenfor å hente ut alle v
 Formelen for all-in-front algoritmen, med den samme poeng(x,y) funksjonen som Vektet sti: 
 
 
+![Heuristic function](https://github.com/MagnusPoppe/CSP-Best-First-Search/blob/master/images_readme/Heuristic%20all-in-front.png?raw=true)
 
 Om poeng(x,y):
 Poenggivningen er satt til å være som nevnt over: 
@@ -50,6 +58,8 @@ Poenggivningen er satt til å være som nevnt over:
 Om disse endres vil algoritmen gi bedre resultater. Jeg har prøvd litt forskjellige poeng, en variant der tom rute gir 0 og bil i rute gir 1. Denne gir dårligere resutlater enn de over. Jeg har også prøvd å gange summen av alle poengene med 10 eller 100. Når man gjør dette gir algoritmen feil svar for  alle H. Denne overestimerer veldig. Dette gjelder også hvis jeg ganger hver av poengene med 10. Dette betyr vel strengt talt at begge de heuristiske funksjonene som bruker poeng funksjonen ikke er brukbare. 
 
 ### Statistikk for A* med forskjellige heuristiske funksjonene. 
+
+![Heuristic function](https://github.com/MagnusPoppe/CSP-Best-First-Search/blob/master/images_readme/Table%20of%20board%20times.png?raw=true)
 
 ###### Generering av nye noder
 Å lage nye noder med A* algoritmen og Rush Hour noder gjøres det en gjennomgang av alle bilene på kartet. For hver bil sjekker jeg om det er noen lovlige trekk for bilen, e.g. om det er en tom celle foran eller bak bilen. Hvor hvert av de gyldige trekkene som finnes blir det laget en ny node der en enkelt bil er flyttet. Når alle mulige noder er laget blir det gjort noen sjekker på hvordan noden ser ut. 
@@ -68,6 +78,9 @@ Om ingen av de to over gjelder, legges noden til i agendaen.
 
 ### Sammenlikningstabell av ytelsen til de tre typene søk.
 Under er sammenlikning av dybde-først, bredde-først og A* søkene. Jeg har oppnådd de forskjellige typene søkene ved å endre på “agendaen” i A*. Dybde først er LIFO (Last in, first out) og er implementert ved å lage innsetting først i listen. Her har vi ikke sortering. Det er heller ikke sortering for bredde først. Bredde først er FIFO (First in, first out) er laget ved å fjerne sortering fra agendaen. Køen er fortsatt samme. 
+
+
+![Heuristic function](https://github.com/MagnusPoppe/CSP-Best-First-Search/blob/master/images_readme/Table%20performance.png?raw=true)
 
 ## Modul 2: CSP og Nonogram
 
